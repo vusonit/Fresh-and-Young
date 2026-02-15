@@ -10,7 +10,7 @@ export default function HeroSection({
   backgroundImage = "/images/hero-bg.jpg",
 }: HeroSectionProps) {
   return (
-    <section className="relative w-full h-[900px] overflow-hidden">
+    <section className="bg-black relative w-full h-[900px] overflow-hidden">
       <Image
         src={backgroundImage}
         alt="Hero background"

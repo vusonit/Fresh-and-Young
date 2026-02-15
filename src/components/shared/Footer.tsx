@@ -59,7 +59,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-bg-black text-text-light">
+    <footer className="bg-black text-text-light">
       {/* Building Illustration */}
       <div className="w-full flex justify-center">
         <Image
@@ -103,7 +103,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-primary hover:opacity-80 transition-opacity text-[32px] font-semibold leading-[135%]"
+                    className="text-bg-dark hover:opacity-80 transition-opacity text-[32px] font-semibold leading-[135%]"
                   >
                     {link.label}
                   </Link>
@@ -177,10 +177,16 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text-light">
             <p>&copy;2025 FY. All rights reserved.</p>
             <div className="flex items-center gap-8">
-              <a href="tel:+84932898222" className="hover:text-primary transition-colors">
+              <a
+                href="tel:+84932898222"
+                className="hover:text-primary transition-colors"
+              >
                 (+84) 932 898 222
               </a>
-              <a href="mailto:hi@fy.com" className="hover:text-primary transition-colors">
+              <a
+                href="mailto:hi@fy.com"
+                className="hover:text-primary transition-colors"
+              >
                 hi@fy.com
               </a>
             </div>

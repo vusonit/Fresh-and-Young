@@ -1,67 +1,226 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 
-export default function PhilosophySection() {
+type CircleId = "fy" | "rj" | "ry" | null;
+
+interface PhilosophySectionProps {
+  label?: string;
+  title: string;
+  description?: string | string[];
+}
+
+export default function PhilosophySection({
+  label,
+  title,
+  description,
+}: PhilosophySectionProps) {
+  const [active, setActive] = useState<CircleId>(null);
+
+  const descriptions = description
+    ? Array.isArray(description)
+      ? description
+      : [description]
+    : [];
+
   return (
-    <section className="bg-bg-black py-20 lg:py-32">
-      <div className="max-w-[952px] mx-auto px-6 lg:px-12 text-center">
-        <h2 className="text-[32px] font-medium leading-[1.22] text-bg-light mb-6">
-          TẦM NHÌN VÀ SỨ MỆNH CỦA CHÚNG TÔI
+    <section className="bg-black pt-[106px]">
+      {/* Header */}
+      <div className="max-w-[952px] mx-auto px-6 text-center">
+        {label && (
+          <p className="text-base font-normal leading-[1.35em] text-bg-light mb-[50px]">
+            {label}
+          </p>
+        )}
+
+        <h2 className="text-[32px] font-medium leading-[1.219em] text-bg-light mb-[80px]">
+          {title}
         </h2>
-        <p className="text-base font-normal leading-[135%] text-bg-light">
-          Với vai trò là đơn vị chủ của liên doanh RY Models, hợp tác cùng RJ Models – công ty sa bàn hàng đầu thế giới, Fresh & Young Studio hướng tới việc hoàn thiện bộ giải pháp hình ảnh toàn diện, kết nối liền mạch: Từ ảnh 3D tĩnh → Animation → Tour 360 tương tác → Sa bàn ảo → SA BÀN VẬT LÝ.
-        </p>
-        <p className="text-base font-normal leading-[135%] text-bg-light mt-4">
-          Sứ mệnh của chúng tôi là trao cho các Chủ đầu tư và các công ty kiến trúc những công cụ hình ảnh mạnh mẽ, trực quan và thuyết phục, giúp nâng cao hiệu quả truyền thông của dự án và hỗ trợ tối đa cho hoạt động bán hàng.
-        </p>
+
+        {descriptions.length > 0 && (
+          <div className="mb-[80px]">
+            {descriptions.map((text, i) => (
+              <p
+                key={i}
+                className={`text-base font-normal leading-[135%] text-bg-light ${
+                  i > 0 ? "mt-4" : ""
+                }`}
+              >
+                {text}
+              </p>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Venn Diagram */}
-      <div className="max-w-[965px] mx-auto mt-16 px-6">
-        <div className="relative w-full aspect-[965/609]">
-          {/* FY Circle - Large */}
-          <div className="absolute left-0 top-0 w-[63%] h-full">
-            <div className="relative w-full h-full rounded-full border border-white/20 flex flex-col items-center justify-center">
-              {/* FY Logo */}
-              <div className="w-[60px] h-[60px] rounded-full bg-bg-black flex items-center justify-center mb-4">
-                <Image
-                  src="/logo/logo-fy.svg"
-                  alt="FY"
-                  width={34}
-                  height={22}
-                  className="brightness-0 invert"
-                />
-              </div>
-              <p className="text-text-gray-dark text-base text-center max-w-[146px] leading-[135%]">
-                Đơn vị diễn hoạ được các doanh nghiệp, chủ đầu tư hàng đầu trong, ngoài nước lựa chọn hợp tác.
-              </p>
+      {/* Venn Diagram - 965x609 */}
+      <div className="max-w-[965px] mx-auto px-6 pb-[106px]">
+        <div className="relative w-full" style={{ aspectRatio: "965/609" }}>
+
+          {/* z-index order: FY(1) < RJ(2) < RY(3) < all badges(10) */}
+
+          {/* ── FY Circle (609x609) - lowest z ── */}
+          <div
+            className="absolute cursor-pointer z-[1]"
+            style={{ left: 326, top: 0, width: 609, height: 609 }}
+            onMouseEnter={() => setActive("fy")}
+            onMouseLeave={() => setActive(null)}
+          >
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 609 609">
+              <circle
+                cx="304.5"
+                cy="304.5"
+                r="303.5"
+                fill="none"
+                className="transition-all duration-300"
+                stroke="#F4F4FA"
+                strokeWidth={active === "fy" ? 0.5 : 0.25}
+                strokeDasharray={active === "fy" ? "none" : "3 3"}
+              />
+            </svg>
+            <p
+              className={`absolute text-base text-center leading-[135%] transition-colors duration-300 ${
+                active === "fy" ? "text-[#F4F4FA]" : "text-[#2E2E3A]"
+              }`}
+              style={{ left: 375, top: 239, width: 146 }}
+            >
+              Đơn vị diễn hoạ được các doanh nghiệp, chủ đầu tư hàng đầu trong, ngoài nước lựa chọn hợp tác.
+            </p>
+          </div>
+
+          {/* ── RJ Circle (300x300) - mid z ── */}
+          <div
+            className="absolute cursor-pointer z-[2]"
+            style={{ left: 29, top: 160, width: 300, height: 300 }}
+            onMouseEnter={() => setActive("rj")}
+            onMouseLeave={() => setActive(null)}
+          >
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 300">
+              <circle
+                cx="150"
+                cy="150"
+                r="149"
+                fill="none"
+                className="transition-all duration-300"
+                stroke="#F4F4FA"
+                strokeWidth={active === "rj" ? 0.5 : 0.25}
+                strokeDasharray={active === "rj" ? "none" : "3 3"}
+              />
+            </svg>
+            <p
+              className={`absolute text-base text-center leading-[135%] transition-colors duration-300 ${
+                active === "rj" ? "text-[#F4F4FA]" : "text-[#2E2E3A]"
+              }`}
+              style={{ left: 76, top: 117, width: 150 }}
+            >
+              Đơn vị sản xuất mô hình kiến trúc top 1 thế giới.
+            </p>
+          </div>
+
+          {/* ── RY Circle (320x320) - highest z among circles ── */}
+          <div
+            className="absolute cursor-pointer z-[3]"
+            style={{ left: 325, top: 150, width: 320, height: 320 }}
+            onMouseEnter={() => setActive("ry")}
+            onMouseLeave={() => setActive(null)}
+          >
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 320">
+              <circle
+                cx="160"
+                cy="160"
+                r="159"
+                fill="none"
+                className="transition-all duration-300"
+                stroke="#F4F4FA"
+                strokeWidth={active === "ry" ? 0.5 : 0.25}
+                strokeDasharray={active === "ry" ? "none" : "3 3"}
+              />
+            </svg>
+            <p
+              className={`absolute text-base text-center leading-[135%] transition-colors duration-300 ${
+                active === "ry" ? "text-[#F4F4FA]" : "text-[#2E2E3A]"
+              }`}
+              style={{ left: 67, top: 128, width: 185 }}
+            >
+              Thương hiệu liên doanh giữa RJ Models và FY.
+            </p>
+          </div>
+
+          {/* ── All Badges - highest z-index, always on top ── */}
+
+          {/* RJ Badge */}
+          <div
+            className="absolute z-[10] pointer-events-none w-[60px] h-[60px]"
+            style={{ left: 0, top: 282 }}
+          >
+            <div
+              className={`w-full h-full rounded-full flex items-center justify-center transition-all duration-300 ${
+                active === "rj"
+                  ? "bg-primary"
+                  : "bg-black border-[0.25px] border-white"
+              }`}
+            >
+              <Image
+                src="/icons/rj-logo.png"
+                alt="RJ"
+                width={26}
+                height={32}
+                className={`transition-all duration-300 ${
+                  active === "rj" ? "brightness-0" : ""
+                }`}
+              />
             </div>
           </div>
 
-          {/* RJ Circle - Medium */}
-          <div className="absolute right-0 bottom-0 w-[34%] h-[49%]">
-            <div className="relative w-full h-full rounded-full border border-white/20 flex flex-col items-center justify-center">
-              <div className="w-[60px] h-[60px] rounded-full bg-bg-black flex items-center justify-center mb-4">
-                <span className="text-white text-sm font-semibold">RJ</span>
-              </div>
-              <p className="text-text-gray-dark text-base text-center max-w-[150px] leading-[135%]">
-                Đơn vị sản xuất mô hình kiến trúc top 1 thế giới.
-              </p>
+          {/* RY Badge */}
+          <div
+            className="absolute z-[10] pointer-events-none w-[60px] h-[60px]"
+            style={{ left: 295, top: 280 }}
+          >
+            <div
+              className={`w-full h-full rounded-full flex items-center justify-center transition-all duration-300 ${
+                active === "ry"
+                  ? "bg-primary"
+                  : "bg-black border-[0.25px] border-white"
+              }`}
+            >
+              <Image
+                src="/icons/fy-logo-diagram.svg"
+                alt="RY"
+                width={37}
+                height={23}
+                className={`transition-all duration-300 ${
+                  active === "ry" ? "brightness-0" : ""
+                }`}
+              />
             </div>
           </div>
 
-          {/* RY Circle - Medium */}
-          <div className="absolute right-[5%] top-0 w-[36%] h-[52%]">
-            <div className="relative w-full h-full rounded-full border border-white/20 flex flex-col items-center justify-center">
-              <div className="w-[60px] h-[60px] rounded-full bg-bg-black flex items-center justify-center mb-4">
-                <span className="text-white text-sm font-semibold">RY</span>
-              </div>
-              <p className="text-text-gray-dark text-base text-center max-w-[185px] leading-[135%]">
-                Thương hiệu liên doanh giữa RJ Models và FY Studio.
-              </p>
+          {/* FY Badge */}
+          <div
+            className="absolute z-[10] pointer-events-none w-[60px] h-[60px]"
+            style={{ left: 905, top: 275 }}
+          >
+            <div
+              className={`w-full h-full rounded-full flex items-center justify-center transition-all duration-300 ${
+                active === "fy"
+                  ? "bg-primary"
+                  : "bg-black border-[0.25px] border-white"
+              }`}
+            >
+              <Image
+                src="/icons/fy-logo-diagram.svg"
+                alt="FY"
+                width={34}
+                height={23}
+                className={`transition-all duration-300 ${
+                  active === "fy" ? "brightness-0" : ""
+                }`}
+              />
             </div>
           </div>
+
         </div>
       </div>
     </section>

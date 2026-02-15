@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Button from "./Button";
 
@@ -8,35 +9,46 @@ const projects = [
     year: "2025",
     name: "ROYAL CENTRAL PARK",
     image: "/images/project-1.jpg",
-    width: 468,
-    height: 260,
   },
   {
     year: "2024",
     name: "Sun Feliza Suites",
     image: "/images/project-2.jpg",
-    width: 830,
-    height: 460,
   },
   {
     year: "2025",
     name: "VINHOMES GOLDEN CITY",
     image: "/images/project-3.jpg",
-    width: 468,
-    height: 260,
   },
   {
     year: "2025",
     name: "CITYMARK RESIDENCE",
+    image: "/images/project-1.jpg",
+  },
+  {
+    year: "2024",
+    name: "OCEAN PARK TOWER",
     image: "/images/project-2.jpg",
-    width: 468,
-    height: 260,
+  },
+  {
+    year: "2025",
+    name: "SUNRISE VALLEY",
+    image: "/images/project-3.jpg",
   },
 ];
 
 export default function ProjectsSection() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  // Default: middle card (index 1) of each visible group is active
+  const getIsActive = (index: number) => {
+    if (hoveredIndex !== null) return hoveredIndex === index;
+    // Default active is index 1 (middle of first visible group)
+    return index === 1;
+  };
+
   return (
-    <section className="py-20 lg:py-32 overflow-hidden">
+    <section className="bg-black py-20 lg:py-32 overflow-hidden">
       {/* Header */}
       <div className="max-w-[952px] mx-auto px-6 lg:px-12 text-center mb-16">
         <h2 className="text-[32px] font-medium leading-[1.22] text-bg-light mb-6">
@@ -52,52 +64,51 @@ export default function ProjectsSection() {
 
       {/* Projects Carousel */}
       <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex gap-0 min-w-max px-6 lg:px-[calc((100vw-1440px)/2+122px)]">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 group cursor-pointer"
-              style={{ width: project.width }}
-            >
-              {/* Image */}
+        <div className="flex items-end min-w-max">
+          {projects.map((project, index) => {
+            const isActive = getIsActive(index);
+
+            return (
               <div
-                className="relative overflow-hidden bg-white"
-                style={{ height: project.height }}
+                key={index}
+                className="flex-shrink-0 flex flex-col gap-[20px] cursor-pointer transition-all duration-500 ease-in-out"
+                style={{
+                  width: isActive ? 830 : 468,
+                }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  quality={85}
-                />
-              </div>
+                {/* Info - left aligned */}
+                <div>
+                  <p className="text-base font-normal leading-[1.35em] text-[#F4F4FA]">
+                    {project.year}
+                  </p>
+                  <p className="text-base font-normal leading-[1.35em] text-[#F4F4FA]">
+                    {project.name}
+                  </p>
+                </div>
 
-              {/* Info */}
-              <div className="mt-4">
-                <p className="text-base font-normal text-bg-light">
-                  {project.year}
-                </p>
-                <p className="text-base font-normal text-bg-light">
-                  {project.name}
-                </p>
+                {/* Image */}
+                <div
+                  className="relative w-full overflow-hidden transition-all duration-500 ease-in-out"
+                  style={{
+                    height: isActive ? 460 : 260,
+                  }}
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.name}
+                    fill
+                    className="object-cover"
+                    quality={85}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-      {/* Partner Logos */}
-      <div className="max-w-[var(--max-width-content)] mx-auto px-6 lg:px-12 mt-20">
-        <div className="flex items-center justify-center gap-16 opacity-50">
-          <div className="h-[50px] w-[97px] bg-white/50 rounded" />
-          <div className="h-[20px] w-[97px] bg-white/50 rounded" />
-          <div className="h-[23px] w-[109px] bg-white/50 rounded" />
-          <div className="h-[43px] w-[72px] bg-white/50 rounded" />
-          <div className="h-[50px] w-[161px] bg-white/50 rounded" />
-          <div className="h-[53px] w-[68px] bg-white/50 rounded" />
-        </div>
-      </div>
     </section>
   );
 }

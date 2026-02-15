@@ -46,7 +46,7 @@ export default function ProjectsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-bg-dark py-20 lg:py-32 mt-20">
+      <section className="bg-black py-20 lg:py-32 mt-20">
         <div className="max-w-[var(--max-width-content)] mx-auto px-6 lg:px-12 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-light mb-6">
             Dự án
@@ -58,7 +58,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Projects Grid */}
-      <section className="bg-bg-light py-20 lg:py-32">
+      <section className="bg-black py-20 lg:py-32">
         <div className="max-w-[var(--max-width-content)] mx-auto px-6 lg:px-12">
           {/* Filter */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -105,7 +105,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-bg-dark py-20 lg:py-24">
+      <section className="bg-black py-20 lg:py-24">
         <div className="max-w-[var(--max-width-content)] mx-auto px-6 lg:px-12 text-center">
           <h2 className="text-3xl md:text-4xl font-semibold text-text-light mb-6">
             Bạn có dự án cần visualization?

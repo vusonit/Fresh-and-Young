@@ -4,7 +4,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-bg-dark py-20 lg:py-32 mt-20">
+      <section className="bg-black py-20 lg:py-32 mt-20">
         <div className="max-w-[var(--max-width-content)] mx-auto px-6 lg:px-12 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-light mb-6">
             Liên hệ
@@ -16,7 +16,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="bg-bg-light py-20 lg:py-32">
+      <section className="bg-black py-20 lg:py-32">
         <div className="max-w-[var(--max-width-content)] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
             {/* Contact Info */}

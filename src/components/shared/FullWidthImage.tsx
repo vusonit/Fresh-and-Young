@@ -12,7 +12,7 @@ export default function FullWidthImage({
   height = 810,
 }: FullWidthImageProps) {
   return (
-    <section className="relative w-full" style={{ height }}>
+    <section className="bg-black relative w-full" style={{ height }}>
       <Image
         src={src}
         alt={alt}

@@ -35,7 +35,7 @@ export default function ServicesListSection() {
   const [expandedIndex, setExpandedIndex] = useState(0);
 
   return (
-    <section className="py-20 lg:py-32">
+    <section className="bg-black py-20 lg:py-32">
       <div className="max-w-[var(--max-width-content)] mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-[952px] mx-auto text-center mb-16">

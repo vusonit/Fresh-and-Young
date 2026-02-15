@@ -19,3 +19,8 @@ export { default as NavArrows } from "./NavArrows";
 export { default as ImgBW } from "./ImgBW";
 export { default as CompanyCard } from "./CompanyCard";
 export { default as AboutHero } from "./AboutHero";
+export { default as PartnerLogos } from "./PartnerLogos";
+export { default as PhilosophyAboutSection } from "./PhilosophyAboutSection";
+export { default as LabelSection } from "./LabelSection";
+export { default as TeamSection } from "./TeamSection";
+export { default as BrandsSection } from "./BrandsSection";
