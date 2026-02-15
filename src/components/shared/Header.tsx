@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
+import Button from "./Button";
 
 const navLinks = [
   { label: "Về chúng tôi", href: "/about" },
@@ -50,7 +51,10 @@ export default function Header() {
           </div>
 
           {/* CTA Button */}
-          <Link
+          <Button variant="primary" href="/contact" hoverText="Hợp tác nào!">
+            Kết nối ngay!
+          </Button>
+          {/* <Link
             href="/contact"
             className="inline-flex items-center w-[190px] h-[47px] hover:opacity-90 transition-opacity"
           >
@@ -65,7 +69,7 @@ export default function Header() {
                 height={14}
               />
             </span>
-          </Link>
+          </Link> */}
         </nav>
 
         {/* Mobile Menu Button */}

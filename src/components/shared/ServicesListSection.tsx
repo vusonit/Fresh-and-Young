@@ -45,7 +45,7 @@ export default function ServicesListSection() {
           <p className="text-base font-normal leading-[135%] text-bg-light mb-10">
             FY mang đến hệ giải pháp visualization toàn diện, giúp nâng tầm khả năng trình bày và truyền tải giá trị kiến trúc. Từ hình ảnh tĩnh, chuyển động đến trải nghiệm ảo, mỗi sản phẩm đều được tạo ra với độ chính xác cao, sự tinh tế trong thẩm mỹ và khả năng thuyết phục mạnh mẽ.
           </p>
-          <Button variant="primary" href="/about">
+          <Button variant="primary" href="/about" hoverText="Tìm hiểu ngay!">
             Về chúng tôi
           </Button>
         </div>

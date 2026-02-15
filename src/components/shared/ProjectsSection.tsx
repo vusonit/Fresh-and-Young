@@ -57,7 +57,7 @@ export default function ProjectsSection() {
         <p className="text-base font-normal leading-[135%] text-bg-light mb-10">
           Chúng tôi xem mỗi dự án là cơ hội để làm tốt hơn, nhìn khác hơn số đông và tạo nên những hình ảnh sống động có sức lan tỏa tốt.
         </p>
-        <Button variant="primary" href="/projects">
+        <Button variant="primary" href="/projects" hoverText="Tìm hiểu ngay!">
           Toàn bộ dự án
         </Button>
       </div>

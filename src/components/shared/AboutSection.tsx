@@ -14,7 +14,7 @@ export default function AboutSection() {
         <p className="text-base font-normal leading-[135%] text-bg-light mb-[50px]">
           Tại FY, chúng tôi khai thác sức mạnh của mô phỏng số và kỹ thuật đồ hoạ tiên tiến để đưa kiến trúc vào một ngôn ngữ hình ảnh mạch lạc, dễ tiếp cận và giàu tính thuyết phục. Mỗi sản phẩm được tạo nên nhằm tối ưu trải nghiệm xem và gia tăng giá trị cho dự án.
         </p>
-        <Button variant="primary" href="/about">
+        <Button variant="primary" href="/about" hoverText="Tìm hiểu ngay!">
           Về chúng tôi
         </Button>
       </div>

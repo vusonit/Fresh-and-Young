@@ -24,3 +24,8 @@ export { default as PhilosophyAboutSection } from "./PhilosophyAboutSection";
 export { default as LabelSection } from "./LabelSection";
 export { default as TeamSection } from "./TeamSection";
 export { default as BrandsSection } from "./BrandsSection";
+export { default as ServiceHero } from "./ServiceHero";
+export { default as ProjectHero } from "./ProjectHero";
+export { default as WorkflowDiagramSection } from "./WorkflowDiagramSection";
+export { default as ServiceValuesSection } from "./ServiceValuesSection";
+export { default as ProjectsGrid } from "./ProjectsGrid";
