@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const BRAND_LOGOS = [
   "logo-citymark-residence",
@@ -26,16 +29,30 @@ export default function BrandsSection({ label }: BrandsSectionProps) {
     <section className="bg-black py-20 lg:py-28">
       <div className="max-w-[var(--max-width-wide)] mx-auto px-[122px]">
         {/* Label */}
-        <p className="text-base font-normal text-center text-bg-light mb-20">
+        <motion.p
+          className="text-base font-normal text-center text-bg-light mb-20"
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+        >
           {label}
-        </p>
+        </motion.p>
 
         {/* Logo grid */}
         <div className="grid grid-cols-9 gap-6 md:gap-8">
-          {BRAND_LOGOS.map((logoName) => (
-            <div
+          {BRAND_LOGOS.map((logoName, index) => (
+            <motion.div
               key={logoName}
               className="flex items-center justify-center p-2"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                ease: [0.16, 1, 0.3, 1],
+                delay: (index % 9) * 0.03,
+              }}
+              viewport={{ once: false, margin: "-10% 0px -10% 0px", amount: 0.2 }}
             >
               <Image
                 src={`/icons/brands-logo/${logoName}.svg`}
@@ -44,7 +61,7 @@ export default function BrandsSection({ label }: BrandsSectionProps) {
                 height={60}
                 className="w-full h-auto max-h-12 object-contain brightness-0 invert opacity-90"
               />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

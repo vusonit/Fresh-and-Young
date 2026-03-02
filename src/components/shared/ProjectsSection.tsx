@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import Button from "./Button";
 
 const projects = [
@@ -51,12 +52,24 @@ export default function ProjectsSection() {
     <section className="bg-black py-20 lg:py-32 overflow-hidden">
       {/* Header */}
       <div className="max-w-[952px] mx-auto px-6 lg:px-12 text-center mb-16">
-        <h2 className="text-[32px] font-medium leading-[1.22] text-bg-light mb-6">
+        <motion.h2
+          className="text-[32px] font-medium leading-[1.22] text-bg-light mb-6"
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+        >
           Dự án nổi bật
-        </h2>
-        <p className="text-base font-normal leading-[135%] text-bg-light mb-10">
+        </motion.h2>
+        <motion.p
+          className="text-base font-normal leading-[135%] text-bg-light mb-10"
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+        >
           Chúng tôi xem mỗi dự án là cơ hội để làm tốt hơn, nhìn khác hơn số đông và tạo nên những hình ảnh sống động có sức lan tỏa tốt.
-        </p>
+        </motion.p>
         <Button variant="primary" href="/projects" hoverText="Tìm hiểu ngay!">
           Toàn bộ dự án
         </Button>
@@ -79,14 +92,27 @@ export default function ProjectsSection() {
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 {/* Info - left aligned */}
-                <div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: (index % 3) * 0.08,
+                  }}
+                  viewport={{
+                    once: false,
+                    margin: "-10% 0px -10% 0px",
+                    amount: 0.25,
+                  }}
+                >
                   <p className="text-base font-normal leading-[1.35em] text-[#F4F4FA]">
                     {project.year}
                   </p>
                   <p className="text-base font-normal leading-[1.35em] text-[#F4F4FA]">
                     {project.name}
                   </p>
-                </div>
+                </motion.div>
 
                 {/* Image */}
                 <div

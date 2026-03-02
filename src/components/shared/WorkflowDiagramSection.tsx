@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
@@ -108,22 +109,30 @@ export default function WorkflowDiagramSection() {
     <section className="relative w-full bg-dark overflow-hidden">
       <div className="relative w-[1440px] mx-auto" style={{ height: 1100 }}>
         {/* Title */}
-        <h2
+        <motion.h2
           className="absolute text-[32px] font-medium leading-[1.35] text-bg-light text-center uppercase"
           style={{ left: 244, top: 102, width: 954 }}
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           Quy trình làm việc
-        </h2>
+        </motion.h2>
 
         {/* Description */}
-        <p
+        <motion.p
           className="absolute text-[16px] font-normal leading-[1.35] text-bg-light text-center"
           style={{ left: 244, top: 195, width: 952 }}
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           Quy trình làm việc của chúng tôi được xây dựng rõ ràng và khoa học,
           nhằm đảm bảo tiến độ, chất lượng và sự phối hợp hiệu quả trong suốt
           quá trình triển khai dự án.
-        </p>
+        </motion.p>
 
         {/* Circle */}
         <div
@@ -165,7 +174,7 @@ export default function WorkflowDiagramSection() {
               />
 
               {/* Step number — centered inside circle */}
-              <span
+              <motion.span
                 className="absolute text-[16px] font-normal leading-[1.35] text-center transition-colors duration-300 pointer-events-none"
                 style={{
                   left: 532,
@@ -173,12 +182,24 @@ export default function WorkflowDiagramSection() {
                   width: 378,
                   color: isActive ? "#2E2E3A" : "#F4F4FA",
                 }}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.55,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: index * 0.05,
+                }}
+                viewport={{
+                  once: false,
+                  margin: "-10% 0px -10% 0px",
+                  amount: 0.2,
+                }}
               >
                 {step.number}
-              </span>
+              </motion.span>
 
               {/* Step title — centered inside circle */}
-              <span
+              <motion.span
                 className="absolute text-[24px] font-normal leading-[1.22] text-center uppercase transition-colors duration-300 pointer-events-none"
                 style={{
                   left: 532,
@@ -186,9 +207,21 @@ export default function WorkflowDiagramSection() {
                   width: 378,
                   color: isActive ? "#2E2E3A" : "#F4F4FA",
                 }}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.06 + index * 0.05,
+                }}
+                viewport={{
+                  once: false,
+                  margin: "-10% 0px -10% 0px",
+                  amount: 0.2,
+                }}
               >
                 {step.title}
-              </span>
+              </motion.span>
 
               {/* Horizontal line */}
               <div
@@ -205,7 +238,7 @@ export default function WorkflowDiagramSection() {
               />
 
               {/* Description text */}
-              <p
+              <motion.p
                 className="absolute text-[16px] font-normal leading-[1.35] transition-colors duration-300 pointer-events-none"
                 style={{
                   left: step.descX,
@@ -214,9 +247,21 @@ export default function WorkflowDiagramSection() {
                   color: isActive ? "#F4F4FA" : "#6b6b78",
                   textAlign: step.side === "right" ? "right" : "left",
                 }}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.55,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.12 + index * 0.05,
+                }}
+                viewport={{
+                  once: false,
+                  margin: "-10% 0px -10% 0px",
+                  amount: 0.2,
+                }}
               >
                 {step.description}
-              </p>
+              </motion.p>
             </div>
           );
         })}

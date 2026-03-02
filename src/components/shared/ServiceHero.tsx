@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function ServiceHero() {
   return (
@@ -12,12 +15,16 @@ export default function ServiceHero() {
         >
           OUR
         </h1>
-        <h1
+        <motion.h1
           className="absolute z-[1] text-[136px] font-semibold leading-none text-bg-light text-left uppercase"
           style={{ left: 411, top: 200, width: 694 }}
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           SERVICES
-        </h1>
+        </motion.h1>
 
         {/* Z-2 ── Frame 40: base building image clipped to bottom portion */}
         <div
@@ -52,12 +59,16 @@ export default function ServiceHero() {
         />
 
         {/* Z-4 ── Small text (topmost layer) */}
-        <p
+        <motion.p
           className="absolute z-[4] text-[14px] font-normal leading-[135%] text-bg-light text-justify uppercase"
           style={{ left: 102, top: 363, width: 176 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           Cung cấp Dịch vụ vượt chuẩn hướng đến giá trị bền vững.
-        </p>
+        </motion.p>
       </div>
     </section>
   );

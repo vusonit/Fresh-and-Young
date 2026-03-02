@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Button from "./Button";
 import ArrowIcon from "./ArrowIcon";
 
@@ -39,12 +40,24 @@ export default function ServicesListSection() {
       <div className="max-w-[var(--max-width-content)] mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="max-w-[952px] mx-auto text-center mb-16">
-          <h2 className="text-[32px] font-medium leading-[1.22] text-bg-light mb-6">
+          <motion.h2
+            className="text-[32px] font-medium leading-[1.22] text-bg-light mb-6"
+            initial={{ opacity: 0, y: 40, scale: 0.97 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+          >
             MANG ĐẾN NHỮNG GIẢI PHÁP TỐI ƯU
-          </h2>
-          <p className="text-base font-normal leading-[135%] text-bg-light mb-10">
+          </motion.h2>
+          <motion.p
+            className="text-base font-normal leading-[135%] text-bg-light mb-10"
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+          >
             FY mang đến hệ giải pháp visualization toàn diện, giúp nâng tầm khả năng trình bày và truyền tải giá trị kiến trúc. Từ hình ảnh tĩnh, chuyển động đến trải nghiệm ảo, mỗi sản phẩm đều được tạo ra với độ chính xác cao, sự tinh tế trong thẩm mỹ và khả năng thuyết phục mạnh mẽ.
-          </p>
+          </motion.p>
           <Button variant="primary" href="/about" hoverText="Tìm hiểu ngay!">
             Về chúng tôi
           </Button>
@@ -53,9 +66,21 @@ export default function ServicesListSection() {
         {/* Service List */}
         <div className="w-full">
           {serviceItems.map((item, index) => (
-            <div
+            <motion.div
               key={index}
               className="border-t border-white/10 last:border-b last:border-white/10"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.65,
+                ease: [0.16, 1, 0.3, 1],
+                delay: index * 0.06,
+              }}
+              viewport={{
+                once: false,
+                margin: "-15% 0px -15% 0px",
+                amount: 0.25,
+              }}
             >
               <button
                 onClick={() =>
@@ -96,7 +121,7 @@ export default function ServicesListSection() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

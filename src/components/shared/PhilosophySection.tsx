@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 type CircleId = "fy" | "rj" | "ry" | null;
 
@@ -34,12 +35,24 @@ export default function PhilosophySection({
           </p>
         )}
 
-        <h2 className="text-[32px] font-medium leading-[1.219em] text-bg-light mb-[80px]">
+        <motion.h2
+          className="text-[32px] font-medium leading-[1.219em] text-bg-light mb-[80px]"
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+        >
           {title}
-        </h2>
+        </motion.h2>
 
         {descriptions.length > 0 && (
-          <div className="mb-[80px]">
+          <motion.div
+            className="mb-[80px]"
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+          >
             {descriptions.map((text, i) => (
               <p
                 key={i}
@@ -50,7 +63,7 @@ export default function PhilosophySection({
                 {text}
               </p>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
 
