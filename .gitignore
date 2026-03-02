@@ -27,8 +27,14 @@ yarn-error.log*
 .env*.local
 .env
 
+# Videos
+public/videos/
+
 # Vercel
 .vercel
+
+# Claude
+.claude/
 
 # TypeScript
 *.tsbuildinfo

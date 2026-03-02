@@ -10,13 +10,47 @@ interface RelatedProjectsProps {
   projects: ProjectDetail[];
 }
 
-export default function RelatedProjects({ projects }: RelatedProjectsProps) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+function ArrowButton({
+  direction,
+  onClick,
+}: {
+  direction: "left" | "right";
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-12 h-12 rounded-full border border-white/40 bg-black/50 backdrop-blur-sm shadow-[0_0_20px_rgba(0,0,0,0.6)] flex items-center justify-center text-white transition-all duration-300 cursor-pointer hover:border-[#FFED00] hover:text-[#FFED00] hover:shadow-[0_0_24px_rgba(255,237,0,0.3)] hover:scale-110"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path
+          d={direction === "left" ? "M15 18L9 12L15 6" : "M9 18L15 12L9 6"}
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
+  );
+}
 
-  const getIsActive = (index: number) => {
-    if (hoveredIndex !== null) return hoveredIndex === index;
-    return index === 1;
-  };
+export default function RelatedProjects({ projects }: RelatedProjectsProps) {
+  const [centerIndex, setCenterIndex] = useState(0);
+
+  if (projects.length === 0) return null;
+
+  const getWrappedIndex = (i: number) =>
+    ((i % projects.length) + projects.length) % projects.length;
+
+  const leftProject = projects[getWrappedIndex(centerIndex - 1)];
+  const centerProject = projects[getWrappedIndex(centerIndex)];
+  const rightProject = projects[getWrappedIndex(centerIndex + 1)];
+
+  const handlePrev = () =>
+    setCenterIndex((prev) => getWrappedIndex(prev - 1));
+  const handleNext = () =>
+    setCenterIndex((prev) => getWrappedIndex(prev + 1));
 
   return (
     <section className="relative bg-black overflow-hidden">
@@ -40,55 +74,89 @@ export default function RelatedProjects({ projects }: RelatedProjectsProps) {
           </Button>
         </div>
 
-        {/* Projects Carousel */}
+        {/* Carousel */}
         <div
-          className="absolute left-0 overflow-x-auto scrollbar-hide"
-          style={{ top: 239, width: "100vw" }}
+          className="absolute flex items-end gap-[10px]"
+          style={{ left: 0, top: 239, width: 1440 }}
         >
-          <div className="flex items-end min-w-max">
-            {projects.map((project, index) => {
-              const isActive = getIsActive(index);
+          {/* Left — small */}
+          <Link
+            href={`/projects/${leftProject.id}`}
+            className="shrink-0 flex flex-col gap-5 transition-all duration-500 ease-in-out"
+            style={{ width: 305 }}
+          >
+            <p className="text-sm font-normal leading-[1.35] text-bg-light/60 truncate">
+              {leftProject.name}
+            </p>
+            <div
+              className="relative w-full overflow-hidden"
+              style={{ height: 260 }}
+            >
+              <Image
+                src={leftProject.thumbnail}
+                alt={leftProject.name}
+                fill
+                className="object-cover"
+                quality={85}
+              />
+            </div>
+          </Link>
 
-              return (
-                <Link
-                  key={project.id}
-                  href={`/projects/${project.id}`}
-                  className="flex-shrink-0 flex flex-col gap-5 cursor-pointer transition-all duration-500 ease-in-out"
-                  style={{
-                    width: isActive ? 830 : 468,
-                  }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                >
-                  {/* Info */}
-                  <div>
-                    <p className="text-base font-normal leading-[1.35] text-bg-light">
-                      {project.year}
-                    </p>
-                    <p className="text-base font-normal leading-[1.35] text-bg-light">
-                      {project.name}
-                    </p>
-                  </div>
+          {/* Center — expanded */}
+          <Link
+            href={`/projects/${centerProject.id}`}
+            className="shrink-0 flex flex-col gap-5 transition-all duration-500 ease-in-out"
+            style={{ width: 810 }}
+          >
+            <p className="text-base font-normal leading-[1.35] text-bg-light">
+              {centerProject.name}
+            </p>
+            <div
+              className="relative w-full overflow-hidden"
+              style={{ height: 460 }}
+            >
+              <Image
+                src={centerProject.thumbnail}
+                alt={centerProject.name}
+                fill
+                className="object-cover"
+                quality={85}
+              />
+            </div>
+          </Link>
 
-                  {/* Image */}
-                  <div
-                    className="relative w-full overflow-hidden transition-all duration-500 ease-in-out"
-                    style={{
-                      height: isActive ? 460 : 260,
-                    }}
-                  >
-                    <Image
-                      src={project.thumbnail}
-                      alt={project.name}
-                      fill
-                      className="object-cover"
-                      quality={85}
-                    />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+          {/* Right — small */}
+          <Link
+            href={`/projects/${rightProject.id}`}
+            className="shrink-0 flex flex-col gap-5 transition-all duration-500 ease-in-out"
+            style={{ width: 305 }}
+          >
+            <p className="text-sm font-normal leading-[1.35] text-bg-light/60 truncate">
+              {rightProject.name}
+            </p>
+            <div
+              className="relative w-full overflow-hidden"
+              style={{ height: 260 }}
+            >
+              <Image
+                src={rightProject.thumbnail}
+                alt={rightProject.name}
+                fill
+                className="object-cover"
+                quality={85}
+              />
+            </div>
+          </Link>
+        </div>
+
+        {/* Left Arrow — overlaying */}
+        <div className="absolute z-10" style={{ left: 20, top: 520 }}>
+          <ArrowButton direction="left" onClick={handlePrev} />
+        </div>
+
+        {/* Right Arrow — overlaying */}
+        <div className="absolute z-10" style={{ right: 20, top: 520 }}>
+          <ArrowButton direction="right" onClick={handleNext} />
         </div>
       </div>
     </section>

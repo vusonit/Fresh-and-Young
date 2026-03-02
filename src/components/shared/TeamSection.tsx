@@ -13,7 +13,11 @@ interface TeamSectionProps {
   members: TeamMember[];
 }
 
-export default function TeamSection({ label, quote, members }: TeamSectionProps) {
+export default function TeamSection({
+  label,
+  quote,
+  members,
+}: TeamSectionProps) {
   return (
     <section className="bg-black py-20 lg:py-28">
       <div className="max-w-[var(--max-width-wide)] mx-auto px-[122px]">
@@ -30,7 +34,7 @@ export default function TeamSection({ label, quote, members }: TeamSectionProps)
 
       {/* Team cards - horizontal scroll */}
       <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex gap-[25px] px-[122px] min-w-max">
+        <div className="flex gap-[25px] px-[122px] min-w-max justify-center">
           {members.map((member, i) => (
             <TeamCard
               key={i}

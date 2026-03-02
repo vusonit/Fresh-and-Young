@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "id": "vinhomes-wonder-city",
+      "title": "VINHOMES WONDER CITY"
+    },
+    {
+      "id": "vinhomes-globel-gate",
+      "title": "Vinhomes Global Gate"
+    },
+    {
+      "id": "the-metropolitan",
+      "title": "The Metropolitan - Vinhomes Ocean Park 1"
+    },
+    {
+      "id": "himlam-central-park",
+      "title": "Him Lam Central Park"
+    },
+    {
+      "id": "the-paris",
+      "title": "The Paris"
+    },
+    {
+      "id": "the-citymark-residence",
+      "title": "CityMark Residence"
+    },
+    {
+      "id": "the-london",
+      "title": "THE LONDON"
+    }
+  ],
+  "total": 7,
+  "updatedAt": "2026-02-27T06:38:21.145Z"
+}

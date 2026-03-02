@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "./Button";
-import { mockProjectDetails } from "@/data/mock-projects";
 
 export interface Project {
   id: string;
@@ -13,26 +12,64 @@ export interface Project {
   thumbnail: string;
 }
 
-const mockProjects: Project[] = mockProjectDetails.map((p) => ({
-  id: p.id,
-  name: p.name,
-  year: p.year,
-  thumbnail: p.thumbnail,
-}));
-
 const INITIAL_COUNT = 6;
 
 interface ProjectsGridProps {
   projects?: Project[];
 }
 
-export default function ProjectsGrid({
-  projects = mockProjects,
-}: ProjectsGridProps) {
+export default function ProjectsGrid({ projects: propProjects }: ProjectsGridProps) {
+  const [projects, setProjects] = useState<Project[]>(propProjects || []);
+  const [loading, setLoading] = useState(!propProjects);
   const [showAll, setShowAll] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (propProjects) return;
+
+    async function loadProjects() {
+      try {
+        const res = await fetch("/api/projects");
+        const json = await res.json();
+        if (json.success && json.data) {
+          setProjects(
+            json.data.map((p: Record<string, string>) => ({
+              id: p.id,
+              name: p.name,
+              year: p.year || "",
+              thumbnail: p.thumbnail,
+            }))
+          );
+        }
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProjects();
+  }, [propProjects]);
+
   const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT);
+
+  if (loading) {
+    return (
+      <section className="bg-black">
+        <div className="mx-auto" style={{ maxWidth: 1440, padding: "0 16px" }}>
+          <div className="grid grid-cols-2 gap-[8px]">
+            {Array.from({ length: INITIAL_COUNT }).map((_, i) => (
+              <div
+                key={i}
+                className="relative block overflow-hidden bg-neutral-900 animate-pulse"
+                style={{ height: 668 }}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-black">

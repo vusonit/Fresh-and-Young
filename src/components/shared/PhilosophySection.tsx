@@ -57,7 +57,6 @@ export default function PhilosophySection({
       {/* Venn Diagram - 965x609 */}
       <div className="max-w-[965px] mx-auto px-6 pb-[106px]">
         <div className="relative w-full" style={{ aspectRatio: "965/609" }}>
-
           {/* z-index order: FY(1) < RJ(2) < RY(3) < all badges(10) */}
 
           {/* ── FY Circle (609x609) - lowest z ── */}
@@ -67,7 +66,10 @@ export default function PhilosophySection({
             onMouseEnter={() => setActive("fy")}
             onMouseLeave={() => setActive(null)}
           >
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 609 609">
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 609 609"
+            >
               <circle
                 cx="304.5"
                 cy="304.5"
@@ -85,7 +87,8 @@ export default function PhilosophySection({
               }`}
               style={{ left: 375, top: 239, width: 146 }}
             >
-              Đơn vị diễn hoạ được các doanh nghiệp, chủ đầu tư hàng đầu trong, ngoài nước lựa chọn hợp tác.
+              Đơn vị diễn hoạ được các doanh nghiệp, chủ đầu tư hàng đầu trong,
+              ngoài nước lựa chọn hợp tác.
             </p>
           </div>
 
@@ -96,7 +99,10 @@ export default function PhilosophySection({
             onMouseEnter={() => setActive("rj")}
             onMouseLeave={() => setActive(null)}
           >
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 300">
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 300 300"
+            >
               <circle
                 cx="150"
                 cy="150"
@@ -125,7 +131,10 @@ export default function PhilosophySection({
             onMouseEnter={() => setActive("ry")}
             onMouseLeave={() => setActive(null)}
           >
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 320">
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 320 320"
+            >
               <circle
                 cx="160"
                 cy="160"
@@ -186,7 +195,7 @@ export default function PhilosophySection({
               }`}
             >
               <Image
-                src="/icons/fy-logo-diagram.svg"
+                src="/icons/ry-logo.svg"
                 alt="RY"
                 width={37}
                 height={23}
@@ -220,7 +229,6 @@ export default function PhilosophySection({
               />
             </div>
           </div>
-
         </div>
       </div>
     </section>

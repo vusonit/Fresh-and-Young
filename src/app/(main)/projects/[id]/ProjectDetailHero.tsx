@@ -11,21 +11,27 @@ export default function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
   const firstLine = words[0];
   const secondLine = words.slice(1).join(" ");
 
+  // Reduce font size for long titles so text fits above the image
+  const isLong = secondLine.length > 24;
+  const isMedium = secondLine.length > 12;
+  const fontSize = isLong ? 56 : isMedium ? 72 : 96;
+  const secondLineTop = isLong ? 170 : isMedium ? 185 : 200;
+
   return (
     <section className="relative w-full bg-black overflow-hidden">
       <div className="relative w-[1440px] mx-auto" style={{ height: 800 }}>
         {/* First line of name — Z-1 */}
         <span
-          className="absolute z-[1] text-[96px] font-semibold leading-[1.35] text-bg-light uppercase text-center"
-          style={{ left: 199, top: 85, width: 337 }}
+          className="absolute z-[1] font-semibold leading-[1.35] text-bg-light uppercase text-center"
+          style={{ left: 199, top: 85, width: 337, fontSize }}
         >
           {firstLine}
         </span>
 
         {/* Second line of name — Z-1 */}
         <span
-          className="absolute z-[1] text-[96px] font-semibold leading-[1.35] text-bg-light uppercase text-left"
-          style={{ left: 309, top: 200, width: 774 }}
+          className="absolute z-[1] font-semibold leading-[1.35] text-bg-light uppercase text-left"
+          style={{ left: 309, top: secondLineTop, width: 774, fontSize }}
         >
           {secondLine}
         </span>

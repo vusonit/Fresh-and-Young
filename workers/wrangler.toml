@@ -1,0 +1,10 @@
+name = "fresh-and-young-cdn"
+main = "r2-worker.js"
+compatibility_date = "2024-01-01"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "fresh-and-young"
+
+[vars]
+R2_BUCKET_NAME = "fresh-and-young"

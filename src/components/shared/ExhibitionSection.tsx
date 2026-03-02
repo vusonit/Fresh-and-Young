@@ -13,7 +13,7 @@ const tabs: TabItem[] = [
   {
     id: "3d-animation",
     label: "DIỄN HOẠ 3D & ANIMATION",
-    media: { type: "image", src: "/images/exhibition-bg.jpg" },
+    media: { type: "video", src: "/videos/3d-animation.mp4" },
   },
   {
     id: "virtual-tour",
@@ -23,7 +23,7 @@ const tabs: TabItem[] = [
   {
     id: "tvc-film",
     label: "TVC & FILM",
-    media: { type: "image", src: "/images/exhibition-bg.jpg" },
+    media: { type: "video", src: "/videos/tvc-film.mp4" },
   },
   {
     id: "sa-ban",

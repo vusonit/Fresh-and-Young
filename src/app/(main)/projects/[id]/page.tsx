@@ -1,18 +1,63 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
-import { mockProjectDetails } from "@/data/mock-projects";
+import {
+  fetchProjectMetadata,
+  fetchAllProjects,
+  getProjectImageUrl,
+} from "@/lib/r2";
 import { ProjectDetail } from "@/types/project";
 import ProjectDetailHero from "./ProjectDetailHero";
 import ProjectMediaGallery from "./ProjectMediaGallery";
 import RelatedProjects from "./RelatedProjects";
 
-// TODO: Replace with API call to Cloudflare R2
 async function getProject(id: string): Promise<ProjectDetail | null> {
-  return mockProjectDetails.find((p) => p.id === id || p.slug === id) || null;
+  const metadata = await fetchProjectMetadata(id);
+  if (!metadata) return null;
+
+  const imageCount = metadata.imageCount || 0;
+  const extensions = metadata.imageExtensions || ["png"];
+  const ext = extensions[0] || "png";
+
+  const media = Array.from({ length: imageCount }, (_, i) => ({
+    type: "image" as const,
+    url: getProjectImageUrl(id, i + 1, ext),
+  }));
+
+  const thumbnail =
+    media.length > 0 ? media[0].url : getProjectImageUrl(id, 1, ext);
+
+  return {
+    id: metadata.id,
+    slug: metadata.id,
+    name: metadata.title,
+    year: "",
+    description: metadata.description || "",
+    services: metadata.scope ? [metadata.scope] : [],
+    thumbnail,
+    metadata: {
+      developer: metadata.investor,
+    },
+    media,
+  };
 }
 
-function getRelatedProjects(currentId: string): ProjectDetail[] {
-  return mockProjectDetails.filter((p) => p.id !== currentId).slice(0, 4);
+async function getRelatedProjects(currentId: string): Promise<ProjectDetail[]> {
+  const allProjects = await fetchAllProjects();
+  return allProjects
+    .filter((p) => p.id !== currentId)
+    .slice(0, 4)
+    .map((p) => ({
+      id: p.id,
+      slug: p.id,
+      name: p.name,
+      year: p.year,
+      description: p.description || "",
+      services: p.scope ? [p.scope] : [],
+      thumbnail: p.thumbnail,
+      metadata: {
+        developer: p.investor,
+      },
+      media: p.media || [],
+    }));
 }
 
 export default async function ProjectDetailPage({
@@ -27,7 +72,7 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  const relatedProjects = getRelatedProjects(project.id);
+  const relatedProjects = await getRelatedProjects(project.id);
 
   return (
     <>
@@ -64,21 +109,6 @@ export default async function ProjectDetailPage({
             {project.metadata.developer && (
               <span className="text-base font-normal leading-[1.35] text-white">
                 Property Developer: {project.metadata.developer}
-              </span>
-            )}
-            {project.metadata.location && (
-              <span className="text-base font-normal leading-[1.35] text-white">
-                Location: {project.metadata.location}
-              </span>
-            )}
-            {project.metadata.artDirector && (
-              <span className="text-base font-normal leading-[1.35] text-white">
-                Art Director: {project.metadata.artDirector}
-              </span>
-            )}
-            {project.metadata.renderer && (
-              <span className="text-base font-normal leading-[1.35] text-white">
-                Rendered by {project.metadata.renderer}
               </span>
             )}
           </div>
