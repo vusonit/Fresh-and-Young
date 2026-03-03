@@ -1,72 +1,90 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+
+interface YouTubeVideo {
+  videoId: string;
+  title: string;
+  thumbnail: string;
+}
 
 interface TabItem {
   id: string;
   label: string;
-  media: { type: "video"; src: string } | { type: "image"; src: string };
+  keywords: string[];
+  fallbackImage: string;
+  video?: YouTubeVideo;
 }
 
 const tabs: TabItem[] = [
   {
     id: "3d-animation",
     label: "DIỄN HOẠ 3D & ANIMATION",
-    media: { type: "image", src: "/videos/3d-animation-poster.jpg" },
+    keywords: ["diễn hoạ 3d", "3d animation", "dien hoa 3d"],
+    fallbackImage: "/videos/3d-animation-poster.jpg",
   },
   {
     id: "virtual-tour",
     label: "VIRTUAL TOUR 360 & VR/AR",
-    media: { type: "image", src: "/images/hero-bg.jpg" },
+    keywords: ["virtual tour", "vr", "ar", "360"],
+    fallbackImage: "/images/hero-bg.jpg",
   },
   {
     id: "tvc-film",
     label: "TVC & FILM",
-    media: { type: "image", src: "/videos/3d-animation-poster.jpg" },
+    keywords: ["tvc", "film"],
+    fallbackImage: "/videos/3d-animation-poster.jpg",
   },
   {
     id: "sa-ban",
     label: "SA BÀN ẢO",
-    media: { type: "image", src: "/images/exhibition-bg.jpg" },
+    keywords: ["sa bàn", "sa ban"],
+    fallbackImage: "/images/exhibition-bg.jpg",
   },
 ];
 
+function matchVideoToTab(
+  videoTitle: string,
+  tabKeywords: string[]
+): boolean {
+  const lower = videoTitle.toLowerCase();
+  return tabKeywords.some((kw) => lower.includes(kw));
+}
+
 export default function ExhibitionSection() {
   const [activeTab, setActiveTab] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [tabsData, setTabsData] = useState<TabItem[]>(tabs);
 
-  const currentMedia = tabs[activeTab].media;
+  useEffect(() => {
+    fetch("/api/youtube")
+      .then((res) => res.json())
+      .then((json) => {
+        if (!json.success) return;
+        const videos: YouTubeVideo[] = json.data;
 
-  const handlePlay = () => {
-    if (currentMedia.type === "video" && videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
+        const updated = tabs.map((tab) => {
+          const matched = videos.find((v) =>
+            matchVideoToTab(v.title, tab.keywords)
+          );
+          return matched ? { ...tab, video: matched } : tab;
+        });
 
-  const handleTabChange = (index: number) => {
-    setActiveTab(index);
-    setIsPlaying(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
+        setTabsData(updated);
+      })
+      .catch(console.error);
+  }, []);
+
+  const currentTab = tabsData[activeTab];
 
   return (
     <section className="bg-black w-[1440px] max-w-full mx-auto h-[1000px]">
       {/* Tabs */}
       <div className="flex pt-[72px]">
-        {tabs.map((tab, index) => (
+        {tabsData.map((tab, index) => (
           <button
             key={tab.id}
-            onClick={() => handleTabChange(index)}
+            onClick={() => setActiveTab(index)}
             className="flex-1 flex flex-col items-end gap-[15px] cursor-pointer group"
           >
             <span
@@ -87,53 +105,25 @@ export default function ExhibitionSection() {
 
       {/* Media area */}
       <div className="relative w-[1440px] max-w-full h-[800px] mt-[56px] overflow-hidden bg-black">
-        {currentMedia.type === "video" ? (
-          <video
-            ref={videoRef}
-            key={currentMedia.src}
-            className="w-full h-full object-cover"
-            loop
-            muted
-            playsInline
-            onEnded={() => setIsPlaying(false)}
-          >
-            <source src={currentMedia.src} type="video/mp4" />
-          </video>
-        ) : (
-          <Image
-            src={currentMedia.src}
-            alt={tabs[activeTab].label}
-            fill
-            className="object-cover"
-            quality={90}
+        {currentTab.video ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${currentTab.video.videoId}?rel=0`}
+            title={currentTab.video.title}
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
           />
-        )}
-
-        {/* Dark overlay when paused */}
-        {!isPlaying && <div className="absolute inset-0 bg-black/20" />}
-
-        {/* Play Button - only for video */}
-        {currentMedia.type === "video" && (
-          <button
-            onClick={handlePlay}
-            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120px] h-[117px] flex items-center justify-center transition-opacity duration-300 ${
-              isPlaying ? "opacity-0 hover:opacity-100" : "opacity-100"
-            }`}
-            aria-label={isPlaying ? "Pause video" : "Play video"}
-          >
-            <div className="w-[102px] h-[102px] rounded-full bg-bg-dark/80 flex items-center justify-center hover:bg-bg-dark transition-colors">
-              {isPlaying ? (
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <rect x="12" y="10" width="6" height="20" fill="#FFED00" />
-                  <rect x="22" y="10" width="6" height="20" fill="#FFED00" />
-                </svg>
-              ) : (
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <path d="M15 10L32 20L15 30V10Z" fill="#FFED00" />
-                </svg>
-              )}
-            </div>
-          </button>
+        ) : (
+          <>
+            <Image
+              src={currentTab.fallbackImage}
+              alt={currentTab.label}
+              fill
+              className="object-cover"
+              quality={90}
+            />
+            <div className="absolute inset-0 bg-black/20" />
+          </>
         )}
       </div>
     </section>
