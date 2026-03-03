@@ -36,6 +36,9 @@ public/videos/
 # Claude
 .claude/
 
+# Wrangler
+.wrangler/
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
