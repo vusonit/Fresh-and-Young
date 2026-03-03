@@ -103,7 +103,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-bg-dark hover:opacity-80 transition-opacity text-[32px] font-semibold leading-[135%]"
+                    className="text-bg-dark hover:text-amber-300 transition-opacity text-[32px] font-semibold leading-[135%]"
                   >
                     {link.label}
                   </Link>

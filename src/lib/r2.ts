@@ -72,7 +72,7 @@ export async function fetchProjectMetadata(
 export function getProjectImageUrl(
   projectId: string,
   imageNumber: number,
-  extension: string = "png"
+  extension: string = "svg"
 ): string {
   return `${WORKERS_URL}/project/${projectId}/image-${imageNumber}.${extension}`;
 }
@@ -88,21 +88,16 @@ export async function fetchAllProjects(): Promise<R2Project[]> {
       const metadata = await fetchProjectMetadata(entry.id);
 
       const imageCount = metadata?.imageCount || 0;
-      const extensions = metadata?.imageExtensions || ["png"];
 
-      const media = Array.from({ length: imageCount }, (_, i) => {
-        const n = i + 1;
-        const ext = extensions[0] || "png";
-        return {
-          type: "image" as const,
-          url: getProjectImageUrl(entry.id, n, ext),
-        };
-      });
+      const media = Array.from({ length: imageCount }, (_, i) => ({
+        type: "image" as const,
+        url: getProjectImageUrl(entry.id, i + 1),
+      }));
 
       const thumbnail =
         media.length > 0
           ? media[0].url
-          : getProjectImageUrl(entry.id, 1, extensions[0] || "png");
+          : getProjectImageUrl(entry.id, 1);
 
       return {
         id: entry.id,

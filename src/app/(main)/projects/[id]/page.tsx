@@ -6,6 +6,7 @@ import {
 } from "@/lib/r2";
 import { ProjectDetail } from "@/types/project";
 import ProjectDetailHero from "./ProjectDetailHero";
+import ProjectDetailInfoSection from "./ProjectDetailInfoSection";
 import ProjectMediaGallery from "./ProjectMediaGallery";
 import RelatedProjects from "./RelatedProjects";
 
@@ -14,16 +15,14 @@ async function getProject(id: string): Promise<ProjectDetail | null> {
   if (!metadata) return null;
 
   const imageCount = metadata.imageCount || 0;
-  const extensions = metadata.imageExtensions || ["png"];
-  const ext = extensions[0] || "png";
 
   const media = Array.from({ length: imageCount }, (_, i) => ({
     type: "image" as const,
-    url: getProjectImageUrl(id, i + 1, ext),
+    url: getProjectImageUrl(id, i + 1),
   }));
 
   const thumbnail =
-    media.length > 0 ? media[0].url : getProjectImageUrl(id, 1, ext);
+    media.length > 0 ? media[0].url : getProjectImageUrl(id, 1);
 
   return {
     id: metadata.id,
@@ -80,40 +79,7 @@ export default async function ProjectDetailPage({
       <ProjectDetailHero project={project} />
 
       {/* Info Section */}
-      <section
-        className="relative bg-black"
-        style={{ width: "100%", height: 473 }}
-      >
-        <div className="relative w-[1440px] mx-auto h-full">
-          {/* Project Name */}
-          <h1
-            className="absolute text-[32px] font-medium leading-[1.35] text-bg-light uppercase text-center"
-            style={{ left: 472, top: 91, width: 496 }}
-          >
-            {project.name}
-          </h1>
-
-          {/* Description */}
-          <p
-            className="absolute text-base font-normal leading-[1.35] text-bg-light text-center"
-            style={{ left: 244, top: 184, width: 952 }}
-          >
-            {project.description}
-          </p>
-
-          {/* Metadata Row */}
-          <div
-            className="absolute flex items-center justify-between"
-            style={{ left: 122, top: 349, width: 1195 }}
-          >
-            {project.metadata.developer && (
-              <span className="text-base font-normal leading-[1.35] text-white">
-                Property Developer: {project.metadata.developer}
-              </span>
-            )}
-          </div>
-        </div>
-      </section>
+      <ProjectDetailInfoSection project={project} />
 
       {/* Media Gallery */}
       <ProjectMediaGallery media={project.media} />

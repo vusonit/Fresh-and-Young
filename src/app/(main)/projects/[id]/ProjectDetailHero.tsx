@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ProjectDetail } from "@/types/project";
 
 interface ProjectDetailHeroProps {
@@ -16,65 +19,71 @@ export default function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
   const isMedium = secondLine.length > 12;
   const fontSize = isLong ? 56 : isMedium ? 72 : 96;
   const secondLineTop = isLong ? 170 : isMedium ? 185 : 200;
+  const textOffsetY = -12;
 
   return (
-    <section className="relative w-full bg-black overflow-hidden">
-      <div className="relative w-[1440px] mx-auto" style={{ height: 800 }}>
-        {/* First line of name — Z-1 */}
-        <span
-          className="absolute z-[1] font-semibold leading-[1.35] text-bg-light uppercase text-center"
-          style={{ left: 199, top: 85, width: 337, fontSize }}
+    <section className="relative w-full bg-black">
+      <div className="relative w-[1440px] mx-auto pt-[316px]">
+        {/* First line of name */}
+        <motion.span
+          className="absolute z-[5] font-semibold leading-[1.35] text-bg-light uppercase text-center"
+          style={{ left: 199, top: 85 + textOffsetY, width: 337, fontSize }}
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           {firstLine}
-        </span>
+        </motion.span>
 
-        {/* Second line of name — Z-1 */}
-        <span
-          className="absolute z-[1] font-semibold leading-[1.35] text-bg-light uppercase text-left"
-          style={{ left: 309, top: secondLineTop, width: 774, fontSize }}
+        {/* Second line of name */}
+        <motion.span
+          className="absolute z-[5] font-semibold leading-[1.35] text-bg-light uppercase text-left"
+          style={{ left: 309, top: secondLineTop + textOffsetY, width: 774, fontSize }}
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           {secondLine}
-        </span>
+        </motion.span>
 
-        {/* Year — Z-3 */}
-        <span
-          className="absolute z-[3] text-[14px] font-normal leading-[1.35] text-bg-light uppercase"
-          style={{ left: 122, top: 245 }}
+        {/* Year */}
+        <motion.span
+          className="absolute z-[5] text-[14px] font-normal leading-[1.35] text-bg-light uppercase"
+          style={{ left: 122, top: 245 + textOffsetY }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           {project.year}
-        </span>
+        </motion.span>
 
-        {/* Services — Z-3 */}
-        <span
-          className="absolute z-[3] text-[14px] font-normal leading-[1.35] text-bg-light uppercase text-right"
-          style={{ left: 1133, top: 207, width: 185 }}
+        {/* Services */}
+        <motion.span
+          className="absolute z-[5] text-[14px] font-normal leading-[1.35] text-bg-light uppercase text-right"
+          style={{ left: 1133, top: 207 + textOffsetY, width: 185 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.16 }}
+          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           {project.services.join("\n")}
-        </span>
+        </motion.span>
 
-        {/* Clipped image container — Z-2 */}
-        <div
-          className="absolute z-[2] overflow-hidden left-0"
-          style={{ top: 316, width: 1440, height: 484 }}
-        >
-          <div
-            className="absolute"
-            style={{
-              top: -184,
-              left: 0,
-              width: 1440,
-              height: 810,
-            }}
-          >
-            <Image
-              src={project.thumbnail}
-              alt={project.name}
-              fill
-              className="object-cover"
-              quality={90}
-              priority
-            />
-          </div>
+        {/* Image — full width, dynamic height by image ratio */}
+        <div className="relative z-[1] w-full">
+          <Image
+            src={project.thumbnail}
+            alt={project.name}
+            width={1440}
+            height={810}
+            className="w-full h-auto object-cover"
+            sizes="(max-width: 1440px) 100vw, 1440px"
+            quality={90}
+            priority
+          />
         </div>
       </div>
     </section>

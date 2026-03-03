@@ -30,9 +30,15 @@ export default function PhilosophySection({
       {/* Header */}
       <div className="max-w-[952px] mx-auto px-6 text-center">
         {label && (
-          <p className="text-base font-normal leading-[1.35em] text-bg-light mb-[50px]">
+          <motion.p
+            className="text-base font-normal leading-[1.35em] text-bg-light mb-[50px]"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+          >
             {label}
-          </p>
+          </motion.p>
         )}
 
         <motion.h2

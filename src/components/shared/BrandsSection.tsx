@@ -40,26 +40,26 @@ export default function BrandsSection({ label }: BrandsSectionProps) {
         </motion.p>
 
         {/* Logo grid */}
-        <div className="grid grid-cols-9 gap-6 md:gap-8">
+        <div className="grid grid-cols-5 gap-8 md:gap-10">
           {BRAND_LOGOS.map((logoName, index) => (
             <motion.div
               key={logoName}
-              className="flex items-center justify-center p-2"
+              className="flex items-center justify-center p-3"
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.5,
                 ease: [0.16, 1, 0.3, 1],
-                delay: (index % 9) * 0.03,
+                delay: (index % 5) * 0.04,
               }}
               viewport={{ once: false, margin: "-10% 0px -10% 0px", amount: 0.2 }}
             >
               <Image
                 src={`/icons/brands-logo/${logoName}.svg`}
                 alt={logoName.replace("logo-", "").replace(/-/g, " ")}
-                width={120}
-                height={60}
-                className="w-full h-auto max-h-12 object-contain brightness-0 invert opacity-90"
+                width={180}
+                height={90}
+                className="w-full h-auto max-h-20 object-contain brightness-0 invert opacity-90"
               />
             </motion.div>
           ))}
