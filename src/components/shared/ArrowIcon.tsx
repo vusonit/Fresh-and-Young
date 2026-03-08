@@ -2,12 +2,14 @@ interface ArrowIconProps {
   direction?: "right" | "left" | "up" | "down";
   className?: string;
   size?: number;
+  strokeWidth?: number;
 }
 
 export default function ArrowIcon({
   direction = "right",
   className = "",
   size = 20,
+  strokeWidth = 1.5,
 }: ArrowIconProps) {
   const rotations = {
     right: 0,
@@ -29,14 +31,14 @@ export default function ArrowIcon({
       <path
         d="M4.16669 10H15.8334"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M10 4.16669L15.8333 10L10 15.8334"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

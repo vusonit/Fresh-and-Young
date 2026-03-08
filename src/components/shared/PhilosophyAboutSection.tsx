@@ -33,7 +33,8 @@ export default function PhilosophyAboutSection() {
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
           viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
-          Fresh & Young: &ldquo;Fresh minds – Fearless visuals.&rdquo; Tư duy mới – Hình ảnh sáng tạo không giới hạn.
+          Fresh & Young: &ldquo;Fresh minds – Young Power.&rdquo; Tư duy mới –
+          Năng lượng trẻ và nghiêm túc.
         </motion.h2>
 
         {/* Content row: body text left + image right */}
@@ -46,19 +47,22 @@ export default function PhilosophyAboutSection() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.3 }}
           >
-            <p className="font-medium">Fresh Minds</p>
+            <p className="font-normal  text-2xl">Fresh Minds</p>
             <p className="mt-2">
-              Chúng tôi sở hữu những nhân sự đầy năng lượng, luôn tìm kiếm góc nhìn khác biệt và giải pháp sáng tạo cho mỗi dự án.
+              Chúng tôi sở hữu những nhân sự đầy năng lượng, luôn tìm kiếm góc
+              nhìn khác biệt và giải pháp sáng tạo cho mỗi dự án.
             </p>
 
-            <p className="font-medium mt-8">Fearless Visuals</p>
+            <p className="font-normal  text-2xl mt-8">Fearless Visuals</p>
             <p className="mt-2">
-              Chúng tôi không ngại phá bỏ khuôn mẫu, dám thử nghiệm và tạo ra những hình ảnh giàu cảm xúc, táo bạo, có chiều sâu.
+              Chúng tôi không ngại phá bỏ khuôn mẫu, dám thử nghiệm và tạo ra
+              những hình ảnh giàu cảm xúc, táo bạo, có chiều sâu.
             </p>
 
-            <p className="font-medium mt-8">Statement</p>
+            <p className="font-normal  text-2xl mt-8">Statement</p>
             <p className="mt-2">
-              Fresh & Young nơi những người trẻ dám nghĩ lớn và dám tạo ra những giá trị vượt chuẩn.
+              Fresh & Young nơi những người trẻ dám nghĩ lớn và dám tạo ra những
+              giá trị vượt chuẩn.
             </p>
           </motion.div>
 

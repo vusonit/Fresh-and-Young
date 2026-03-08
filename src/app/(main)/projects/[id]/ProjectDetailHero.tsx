@@ -25,21 +25,26 @@ export default function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
     <section className="relative w-full bg-black">
       <div className="relative w-[1440px] mx-auto pt-[316px]">
         {/* First line of name */}
-        <motion.span
+        <span
           className="absolute z-[5] font-semibold leading-[1.35] text-bg-light uppercase text-center"
           style={{ left: 199, top: 85 + textOffsetY, width: 337, fontSize }}
-          initial={{ opacity: 0, y: 40, scale: 0.97 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+          // initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          // whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          // transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          // viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           {firstLine}
-        </motion.span>
+        </span>
 
         {/* Second line of name */}
         <motion.span
           className="absolute z-[5] font-semibold leading-[1.35] text-bg-light uppercase text-left"
-          style={{ left: 309, top: secondLineTop + textOffsetY, width: 774, fontSize }}
+          style={{
+            left: 309,
+            top: secondLineTop + textOffsetY,
+            width: 774,
+            fontSize,
+          }}
           initial={{ opacity: 0, y: 40, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}

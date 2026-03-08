@@ -36,7 +36,7 @@ export default function LabelSection({
 
         {/* Title */}
         <motion.h2
-          className="text-[32px] font-medium leading-[1.219em] text-center text-bg-light max-w-[952px] mx-auto mb-6"
+          className="text-[32px] font-medium leading-[1.219em] text-center text-bg-light max-w-[952px] mx-auto mb-20"
           initial={{ opacity: 0, y: 40, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}

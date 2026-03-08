@@ -41,7 +41,7 @@ export default function ServicesListSection() {
         {/* Header */}
         <div className="max-w-[952px] mx-auto text-center mb-16">
           <motion.h2
-            className="text-[32px] font-medium leading-[1.22] text-bg-light mb-6"
+            className="text-[32px] font-medium leading-[1.22] text-bg-light mb-20"
             initial={{ opacity: 0, y: 40, scale: 0.97 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
@@ -56,7 +56,11 @@ export default function ServicesListSection() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
           >
-            FY mang đến hệ giải pháp visualization toàn diện, giúp nâng tầm khả năng trình bày và truyền tải giá trị kiến trúc. Từ hình ảnh tĩnh, chuyển động đến trải nghiệm ảo, mỗi sản phẩm đều được tạo ra với độ chính xác cao, sự tinh tế trong thẩm mỹ và khả năng thuyết phục mạnh mẽ.
+            FY mang đến hệ giải pháp visualization toàn diện, giúp nâng tầm khả
+            năng trình bày và truyền tải giá trị kiến trúc. Từ hình ảnh tĩnh,
+            chuyển động đến trải nghiệm ảo, mỗi sản phẩm đều được tạo ra với độ
+            chính xác cao, sự tinh tế trong thẩm mỹ và khả năng thuyết phục mạnh
+            mẽ.
           </motion.p>
           <Button variant="primary" href="/about" hoverText="Tìm hiểu ngay!">
             Về chúng tôi
@@ -68,7 +72,7 @@ export default function ServicesListSection() {
           {serviceItems.map((item, index) => (
             <motion.div
               key={index}
-              className="border-t border-white/10 last:border-b last:border-white/10"
+              className={`border-t border-white/10 last:border-b last:border-white/10 ${expandedIndex === index ? "py-4" : ""}`}
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
@@ -88,34 +92,50 @@ export default function ServicesListSection() {
                 }
                 className="w-full flex items-center justify-between py-8 lg:py-9 cursor-pointer group"
               >
-                <div className="flex items-center gap-8 lg:gap-16">
-                  <span className="text-[24px] font-normal text-bg-light">
+                <div className="flex items-center gap-8 lg:gap-16 min-w-0 w-full pr-10">
+                  <span className="text-[24px] font-normal text-bg-light shrink-0">
                     {item.number}
                   </span>
-                  <span className="text-[24px] font-normal text-bg-light text-left">
+                  <span className="text-[24px] font-normal text-bg-light text-left shrink-0">
                     {item.title}
                   </span>
+                  {/* Description — inline right on desktop */}
+                  <div
+                    className={`hidden lg:block overflow-hidden transition-all duration-300 ml-auto max-w-[341px] ${
+                      expandedIndex === index
+                        ? "opacity-100 pt-6"
+                        : "opacity-0 max-h-0 lg:max-h-none"
+                    }`}
+                  >
+                    <p className="text-sm font-normal leading-[135%] text-bg-light">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
                 <div
-                  className={`w-[28px] h-[28px] flex items-center justify-center transition-transform duration-300 ${
-                    expandedIndex === index ? "rotate-45" : ""
+                  className={`shrink-0 ml-8 flex items-center justify-center transition-all duration-300 ${
+                    expandedIndex === index
+                      ? "w-[30px] h-[30px]"
+                      : "w-[34px] h-[34px]"
                   }`}
                 >
                   <ArrowIcon
                     direction={expandedIndex === index ? "down" : "right"}
+                    size={expandedIndex === index ? 30 : 34}
+                    strokeWidth={1}
                   />
                 </div>
               </button>
 
-              {/* Expanded Content */}
+              {/* Expanded Content — mobile only */}
               <div
-                className={`overflow-hidden transition-all duration-300 ${
+                className={`lg:hidden overflow-hidden transition-all duration-300 ${
                   expandedIndex === index
                     ? "max-h-[300px] opacity-100 pb-8"
                     : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="pl-[72px] lg:pl-[112px] max-w-[341px]">
+                <div className="pl-[72px] max-w-[341px]">
                   <p className="text-sm font-normal leading-[135%] text-bg-light">
                     {item.description}
                   </p>

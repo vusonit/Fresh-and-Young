@@ -25,7 +25,7 @@ export default function SectionTitle({
 
   return (
     <div className={`${alignClasses[align]} ${className}`}>
-      <h2 className={`text-3xl md:text-4xl font-semibold ${titleColor} mb-4`}>
+      <h2 className={`text-3xl md:text-4xl font-medium ${titleColor} mb-4`}>
         {title}
       </h2>
       {subtitle && (

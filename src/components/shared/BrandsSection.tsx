@@ -3,21 +3,27 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const BRAND_LOGOS = [
-  "logo-citymark-residence",
-  "logo-elysium-bayside",
-  "logo-him-lam",
-  "logo-metro-politan",
-  "logo-royal-central-park",
-  "logo-sol-fairway-residences",
-  "logo-sun-feliza-suites",
-  "logo-the-london",
-  "logo-the-paris",
-  "logo-vinhomes-dan-phuong",
-  "logo-vinhomes-global-gate",
-  "partner-logo-1",
-  "partner-logo-3",
-  "partner-logo-5",
+const BRAND_ROWS = [
+  [
+    "logo-vinhomes-global-gate",
+    "partner-logo-1",
+    "partner-logo-3",
+    "partner-logo-5",
+    "logo-sun-feliza-suites",
+  ],
+  [
+    "logo-sol-fairway-residences",
+    "logo-royal-central-park",
+    "logo-elysium-bayside",
+    "logo-him-lam",
+    "logo-vinhomes-dan-phuong",
+  ],
+  [
+    "logo-citymark-residence",
+    "logo-the-london",
+    "logo-the-paris",
+    "logo-metro-politan",
+  ],
 ];
 
 interface BrandsSectionProps {
@@ -25,12 +31,14 @@ interface BrandsSectionProps {
 }
 
 export default function BrandsSection({ label }: BrandsSectionProps) {
+  let globalIndex = 0;
+
   return (
     <section className="bg-black py-20 lg:py-28">
       <div className="max-w-[var(--max-width-wide)] mx-auto px-[122px]">
         {/* Label */}
         <motion.p
-          className="text-base font-normal text-center text-bg-light mb-20"
+          className="text-base font-normal text-center text-bg-light mb-20 uppercase tracking-wider"
           initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -39,29 +47,50 @@ export default function BrandsSection({ label }: BrandsSectionProps) {
           {label}
         </motion.p>
 
-        {/* Logo grid */}
-        <div className="grid grid-cols-5 gap-8 md:gap-10">
-          {BRAND_LOGOS.map((logoName, index) => (
-            <motion.div
-              key={logoName}
-              className="flex items-center justify-center p-3"
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                ease: [0.16, 1, 0.3, 1],
-                delay: (index % 5) * 0.04,
-              }}
-              viewport={{ once: false, margin: "-10% 0px -10% 0px", amount: 0.2 }}
+        {/* Logo rows */}
+        <div className="flex flex-col gap-12">
+          {BRAND_ROWS.map((row, rowIndex) => (
+            <div
+              key={rowIndex}
+              className={`grid gap-8 md:gap-10 ${
+                row.length === 5
+                  ? "grid-cols-5"
+                  : "grid-cols-4 max-w-[88%] mx-auto"
+              }`}
             >
-              <Image
-                src={`/icons/brands-logo/${logoName}.svg`}
-                alt={logoName.replace("logo-", "").replace(/-/g, " ")}
-                width={180}
-                height={90}
-                className="w-full h-auto max-h-20 object-contain brightness-0 invert opacity-90"
-              />
-            </motion.div>
+              {row.map((logoName) => {
+                const idx = globalIndex++;
+                return (
+                  <motion.div
+                    key={logoName}
+                    className="flex items-center justify-center h-24"
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      ease: [0.16, 1, 0.3, 1],
+                      delay: (idx % 5) * 0.04,
+                    }}
+                    viewport={{
+                      once: false,
+                      margin: "-10% 0px -10% 0px",
+                      amount: 0.2,
+                    }}
+                  >
+                    <Image
+                      src={`/icons/brands-logo/${logoName}.svg`}
+                      alt={logoName
+                        .replace("logo-", "")
+                        .replace("partner-logo-", "partner ")
+                        .replace(/-/g, " ")}
+                      width={180}
+                      height={90}
+                      className="w-auto h-full max-h-20 object-contain brightness-0 invert opacity-90"
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
           ))}
         </div>
       </div>

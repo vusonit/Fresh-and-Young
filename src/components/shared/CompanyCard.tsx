@@ -29,7 +29,7 @@ export default function CompanyCard({
           {logo ? (
             <Image src={logo} alt={name} width={74} height={49} />
           ) : (
-            <span className="text-bg-light text-2xl font-semibold">
+            <span className="text-bg-light text-2xl font-normal">
               {logoText || name}
             </span>
           )}

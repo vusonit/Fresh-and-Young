@@ -53,7 +53,7 @@ export default function ProjectsSection({
     <section className="bg-black py-20 lg:py-32 overflow-hidden">
       <div className="max-w-[952px] mx-auto px-6 lg:px-12 text-center mb-16">
         <motion.h2
-          className="text-[32px] font-medium leading-[1.22] text-bg-light mb-6"
+          className="text-[32px] font-medium leading-[1.22] text-bg-light mb-20"
           initial={{ opacity: 0, y: 40, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
@@ -87,12 +87,12 @@ export default function ProjectsSection({
             ))}
           </div>
         ) : (
-          <div className="flex items-end gap-8 min-w-max py-12">
+          <div className="flex items-start gap-8 min-w-max py-12">
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className="flex-shrink-0 w-[468px] flex flex-col gap-5 origin-bottom"
-                whileHover={{ scale: 1.14 }}
+                className="flex-shrink-0 w-[468px] flex flex-col gap-5 origin-top"
+                whileHover={{ scale: 1.13, gap: 1 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
                 <motion.div

@@ -18,7 +18,9 @@ interface ProjectsGridProps {
   projects?: Project[];
 }
 
-export default function ProjectsGrid({ projects: propProjects }: ProjectsGridProps) {
+export default function ProjectsGrid({
+  projects: propProjects,
+}: ProjectsGridProps) {
   const [projects, setProjects] = useState<Project[]>(propProjects || []);
   const [loading, setLoading] = useState(!propProjects);
   const [showAll, setShowAll] = useState(false);
@@ -38,7 +40,7 @@ export default function ProjectsGrid({ projects: propProjects }: ProjectsGridPro
               name: p.name,
               year: p.year || "",
               thumbnail: p.thumbnail,
-            }))
+            })),
           );
         }
       } catch (error) {
@@ -72,7 +74,7 @@ export default function ProjectsGrid({ projects: propProjects }: ProjectsGridPro
   }
 
   return (
-    <section className="bg-black">
+    <section className="bg-black pb-32">
       <div className="mx-auto" style={{ maxWidth: 1440, padding: "0 16px" }}>
         {/* Grid */}
         <div className="grid grid-cols-2 gap-[8px]">
@@ -132,7 +134,7 @@ export default function ProjectsGrid({ projects: propProjects }: ProjectsGridPro
 
         {/* Show more button */}
         {!showAll && projects.length > INITIAL_COUNT && (
-          <div className="flex justify-center py-[60px]">
+          <div className="flex justify-center pt-[60px]">
             <Button
               hoverText="Khám phá thêm"
               showArrow={true}

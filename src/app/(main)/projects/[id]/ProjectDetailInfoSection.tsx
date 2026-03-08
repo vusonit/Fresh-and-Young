@@ -11,7 +11,10 @@ export default function ProjectDetailInfoSection({
   project,
 }: ProjectDetailInfoSectionProps) {
   return (
-    <section className="relative bg-black" style={{ width: "100%", height: 473 }}>
+    <section
+      className="relative bg-black"
+      style={{ width: "100%", height: 473 }}
+    >
       <div className="relative w-[1440px] mx-auto h-full">
         {/* Project Name */}
         <motion.h1
@@ -28,7 +31,7 @@ export default function ProjectDetailInfoSection({
         {/* Description */}
         <motion.p
           className="absolute text-base font-normal leading-[1.35] text-bg-light text-center"
-          style={{ left: 244, top: 184, width: 952 }}
+          style={{ left: 244, top: 234, width: 952 }}
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
@@ -39,7 +42,7 @@ export default function ProjectDetailInfoSection({
 
         {/* Metadata Row */}
         <motion.div
-          className="absolute flex items-center justify-between"
+          className="absolute flex items-center justify-center w-full"
           style={{ left: 122, top: 349, width: 1195 }}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

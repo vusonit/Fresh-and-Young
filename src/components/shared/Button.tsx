@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef, useEffect, useState } from "react";
 import ArrowIcon from "./ArrowIcon";
 
 type ButtonVariant = "primary" | "outline" | "white" | "outline-white";
@@ -58,19 +59,37 @@ export default function Button({
 }: ButtonProps) {
   const config = variantConfig[variant];
   const hoverLabel = hoverText || children;
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [arrowSize, setArrowSize] = useState<number>(0);
+
+  useEffect(() => {
+    if (!showArrow || !textRef.current) return;
+    const updateSize = () => {
+      const h = textRef.current?.offsetHeight ?? 0;
+      setArrowSize(h);
+    };
+    updateSize();
+    const observer = new ResizeObserver(updateSize);
+    observer.observe(textRef.current);
+    return () => observer.disconnect();
+  }, [showArrow]);
+
+  const arrowStyle = arrowSize > 0 ? { width: arrowSize, height: arrowSize } : undefined;
 
   const content = (
-    <span className="group relative inline-flex items-stretch">
+    <span className="group relative inline-flex">
       {/* Default state: [Text] [Arrow] */}
-      <span className="flex items-stretch opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+      <span className="flex items-center opacity-100 group-hover:opacity-0 transition-opacity duration-300">
         <span
-          className={`flex items-center px-6 py-3 font-medium text-base whitespace-nowrap ${config.text}`}
+          ref={textRef}
+          className={`flex items-center px-6 py-3 font-normal text-base whitespace-nowrap ${config.text}`}
         >
           {children}
         </span>
         {showArrow && (
           <span
-            className={`flex items-center justify-center w-[47px] ${config.arrow}`}
+            style={arrowStyle}
+            className={`flex items-center justify-center shrink-0 ${config.arrow}`}
           >
             <ArrowIcon direction="right" />
           </span>
@@ -78,16 +97,17 @@ export default function Button({
       </span>
 
       {/* Hover state: [Arrow] [HoverText] — overlaid */}
-      <span className="absolute inset-0 flex items-stretch opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <span className="absolute inset-0 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         {showArrow && (
           <span
-            className={`flex items-center justify-center w-[47px] ${config.hoverArrow}`}
+            style={arrowStyle}
+            className={`flex items-center justify-center shrink-0 ${config.hoverArrow}`}
           >
             <ArrowIcon direction="right" />
           </span>
         )}
         <span
-          className={`flex items-center px-6 py-3 font-medium text-base whitespace-nowrap flex-1 ${config.hoverText}`}
+          className={`flex items-center px-6 py-3 font-normal text-base whitespace-nowrap flex-1 self-stretch ${config.hoverText}`}
         >
           {hoverLabel}
         </span>

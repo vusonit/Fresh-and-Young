@@ -9,16 +9,16 @@ export default function AboutHero() {
       {/* 1440px container — all layers positioned inside */}
       <div className="relative w-[1440px] h-full mx-auto">
         {/* Z-1 ── Text (behind the overlay image, shows through transparent areas) */}
-        <motion.h1
+        <h1
           className="absolute z-[1] text-[136px] font-semibold leading-none text-bg-light text-center"
           style={{ left: 316, top: 115, width: 509 }}
-          initial={{ opacity: 0, y: 40, scale: 0.97 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
+          // initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          // whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          // transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          // viewport={{ once: false, margin: "-20% 0px -20% 0px", amount: 0.4 }}
         >
           About
-        </motion.h1>
+        </h1>
         <motion.h1
           className="absolute z-[1] text-[136px] font-semibold leading-none text-bg-light text-left"
           style={{ left: 721, top: 235, width: 194 }}

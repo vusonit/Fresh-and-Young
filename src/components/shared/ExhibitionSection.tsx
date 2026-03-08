@@ -88,7 +88,7 @@ export default function ExhibitionSection() {
             className="flex-1 flex flex-col items-end gap-[15px] cursor-pointer group"
           >
             <span
-              className={`w-full font-medium text-[20px] leading-[1.219em] uppercase text-center transition-colors duration-300 ${
+              className={`w-full font-normal text-[20px] leading-[1.219em] uppercase text-center transition-colors duration-300 ${
                 activeTab === index ? "text-[#F4F4FA]" : "text-[#2E2E3A]"
               }`}
             >

@@ -123,7 +123,7 @@ export default function WorkflowDiagramSection() {
         {/* Description */}
         <motion.p
           className="absolute text-[16px] font-normal leading-[1.35] text-bg-light text-center"
-          style={{ left: 244, top: 195, width: 952 }}
+          style={{ left: 244, top: 245, width: 952 }}
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}

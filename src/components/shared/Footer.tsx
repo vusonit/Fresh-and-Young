@@ -95,7 +95,7 @@ export default function Footer() {
 
           {/* Sitemap */}
           <div>
-            <h4 className="text-xs font-medium text-text-light uppercase tracking-wider mb-4">
+            <h4 className="text-xs font-normal text-text-light uppercase tracking-wider mb-4">
               SITEMAP
             </h4>
             <ul className="space-y-3">
@@ -103,7 +103,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-bg-dark hover:text-amber-300 transition-opacity text-[32px] font-semibold leading-[135%]"
+                    className="text-bg-dark hover:text-primary transition-opacity text-[32px] font-normal leading-[135%]"
                   >
                     {link.label}
                   </Link>
@@ -114,7 +114,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs font-medium text-text-light uppercase tracking-wider mb-4">
+            <h4 className="text-xs font-normal text-text-light uppercase tracking-wider mb-4">
               LIÊN HỆ
             </h4>
             <ul className="space-y-3">
@@ -133,7 +133,7 @@ export default function Footer() {
 
           {/* Network */}
           <div className="relative">
-            <h4 className="text-xs font-medium text-text-light uppercase tracking-wider mb-4">
+            <h4 className="text-xs font-normal text-text-light uppercase tracking-wider mb-4">
               MẠNG LƯỚI
             </h4>
             <ul className="space-y-3">
