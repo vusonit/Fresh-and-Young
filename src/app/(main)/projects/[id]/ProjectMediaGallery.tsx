@@ -33,12 +33,12 @@ export default function ProjectMediaGallery({
         {showTabs && (
           <div className="flex gap-4 py-6 px-4">
             <TabButton
-              label="Photo"
+              label="Diễn Hoạ 3D"
               active={activeTab === "photo"}
               onClick={() => setActiveTab("photo")}
             />
             <TabButton
-              label="Video"
+              label="Animation 3D"
               active={activeTab === "video"}
               onClick={() => setActiveTab("video")}
             />

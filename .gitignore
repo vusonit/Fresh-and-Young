@@ -38,6 +38,7 @@ public/videos/
 
 # Wrangler
 .wrangler/
+workers/node_modules/
 
 # TypeScript
 *.tsbuildinfo
