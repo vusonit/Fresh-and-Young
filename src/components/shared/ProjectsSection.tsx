@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Button from "./Button";
 
@@ -89,44 +90,45 @@ export default function ProjectsSection({
         ) : (
           <div className="flex items-start gap-8 min-w-max py-12">
             {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="flex-shrink-0 w-[468px] flex flex-col gap-5 origin-top"
-                whileHover={{ scale: 1.13, gap: 1 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-              >
+              <Link key={project.id} href={`/projects/${project.id}`}>
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    ease: [0.16, 1, 0.3, 1],
-                    delay: index * 0.06,
-                  }}
-                  viewport={{
-                    once: false,
-                    margin: "-10% 0px -10% 0px",
-                    amount: 0.25,
-                  }}
+                  className="flex-shrink-0 w-[468px] flex flex-col gap-5 origin-top cursor-pointer"
+                  whileHover={{ scale: 1.13, gap: 1 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
                 >
-                  <p className="text-base font-normal leading-[1.35em] text-[#F4F4FA]">
-                    {project.year}
-                  </p>
-                  <p className="text-base font-normal leading-[1.35em] text-[#F4F4FA]">
-                    {project.name}
-                  </p>
-                </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0.16, 1, 0.3, 1],
+                      delay: index * 0.06,
+                    }}
+                    viewport={{
+                      once: false,
+                      margin: "-10% 0px -10% 0px",
+                      amount: 0.25,
+                    }}
+                  >
+                    <p className="text-base font-normal leading-[1.35em] text-[#F4F4FA]">
+                      {project.year}
+                    </p>
+                    <p className="text-base font-normal leading-[1.35em] text-[#F4F4FA]">
+                      {project.name}
+                    </p>
+                  </motion.div>
 
-                <div className="relative w-full h-[300px] overflow-hidden">
-                  <Image
-                    src={project.thumbnail}
-                    alt={project.name}
-                    fill
-                    className="object-cover"
-                    quality={85}
-                  />
-                </div>
-              </motion.div>
+                  <div className="relative w-full h-[300px] overflow-hidden">
+                    <Image
+                      src={project.thumbnail}
+                      alt={project.name}
+                      fill
+                      className="object-cover"
+                      quality={85}
+                    />
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         )}
