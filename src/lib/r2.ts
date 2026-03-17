@@ -16,6 +16,7 @@ export interface R2ProjectMetadata {
   investor?: string;
   imageCount?: number;
   imageExtensions?: string[];
+  videoCount?: number;
 }
 
 export interface R2Project {
@@ -26,7 +27,7 @@ export interface R2Project {
   description?: string;
   scope?: string;
   investor?: string;
-  media?: { type: "image"; url: string }[];
+  media?: { type: "image" | "video"; url: string }[];
 }
 
 export function getWorkersUrl() {
@@ -78,6 +79,16 @@ export function getProjectImageUrl(
 }
 
 /**
+ * Generate video URL for a project
+ */
+export function getProjectVideoUrl(
+  projectId: string,
+  videoNumber: number
+): string {
+  return `${WORKERS_URL}/project/${projectId}/video-${videoNumber}.mp4`;
+}
+
+/**
  * Fetch all projects with full details
  */
 export async function fetchAllProjects(): Promise<R2Project[]> {
@@ -88,11 +99,19 @@ export async function fetchAllProjects(): Promise<R2Project[]> {
       const metadata = await fetchProjectMetadata(entry.id);
 
       const imageCount = metadata?.imageCount || 0;
+      const videoCount = metadata?.videoCount || 0;
 
-      const media = Array.from({ length: imageCount }, (_, i) => ({
+      const imageMedia = Array.from({ length: imageCount }, (_, i) => ({
         type: "image" as const,
         url: getProjectImageUrl(entry.id, i + 1),
       }));
+
+      const videoMedia = Array.from({ length: videoCount }, (_, i) => ({
+        type: "video" as const,
+        url: getProjectVideoUrl(entry.id, i + 1),
+      }));
+
+      const media = [...imageMedia, ...videoMedia];
 
       const thumbnail =
         media.length > 0

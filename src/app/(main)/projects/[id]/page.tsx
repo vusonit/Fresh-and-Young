@@ -3,6 +3,7 @@ import {
   fetchProjectMetadata,
   fetchAllProjects,
   getProjectImageUrl,
+  getProjectVideoUrl,
 } from "@/lib/r2";
 import { ProjectDetail } from "@/types/project";
 import ProjectDetailHero from "./ProjectDetailHero";
@@ -15,11 +16,19 @@ async function getProject(id: string): Promise<ProjectDetail | null> {
   if (!metadata) return null;
 
   const imageCount = metadata.imageCount || 0;
+  const videoCount = metadata.videoCount || 0;
 
-  const media = Array.from({ length: imageCount }, (_, i) => ({
+  const imageMedia = Array.from({ length: imageCount }, (_, i) => ({
     type: "image" as const,
     url: getProjectImageUrl(id, i + 1),
   }));
+
+  const videoMedia = Array.from({ length: videoCount }, (_, i) => ({
+    type: "video" as const,
+    url: getProjectVideoUrl(id, i + 1),
+  }));
+
+  const media = [...imageMedia, ...videoMedia];
 
   const thumbnail =
     media.length > 0 ? media[0].url : getProjectImageUrl(id, 1);
