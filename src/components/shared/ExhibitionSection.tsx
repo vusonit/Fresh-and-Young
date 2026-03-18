@@ -22,7 +22,7 @@ const tabs: TabItem[] = [
     id: "3d-animation",
     label: "DIỄN HOẠ 3D & ANIMATION",
     keywords: ["diễn hoạ 3d", "3d animation", "dien hoa 3d"],
-    fallbackImage: "/videos/3d-animation-poster.jpg",
+    fallbackImage: "/images/hero-bg.jpg",
   },
   {
     id: "virtual-tour",
@@ -34,7 +34,7 @@ const tabs: TabItem[] = [
     id: "tvc-film",
     label: "TVC & FILM",
     keywords: ["tvc", "film"],
-    fallbackImage: "/videos/3d-animation-poster.jpg",
+    fallbackImage: "/images/hero-bg.jpg",
   },
   {
     id: "sa-ban",
